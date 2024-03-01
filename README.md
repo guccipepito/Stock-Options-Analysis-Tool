@@ -5,7 +5,7 @@ This Python script provides a comprehensive analysis of stock options using data
 ![see-we-will](https://github.com/guccipepito/Stock-Options-Analysis-Tool/assets/87545774/2e8e7531-315c-4332-abbf-e3ab01e4285e)
 
 
-## **Features**:
+## __**Features**__ :
 
 •	**Option Data Retrieval**: Fetches option data including expiration dates, strike prices, and last prices from Yahoo Finance.
 
@@ -19,7 +19,7 @@ This Python script provides a comprehensive analysis of stock options using data
 
 •	**Data Export**: Saves the analyzed option data along with calculated metrics to an Excel file for further analysis.
 
-## **Usage:**
+## __**Usage:**__
 
 1.	Run the script and enter the symbol of the stock you want to analyze.
 
@@ -27,7 +27,7 @@ This Python script provides a comprehensive analysis of stock options using data
 
 3.	Analyzed data is saved to an Excel file, which can be downloaded for further examination.
 
-## **Dependencies:**
+## __**Dependencies:**__
 
 •	yfinance: For retrieving stock and option data from Yahoo Finance.
 
@@ -41,15 +41,18 @@ This Python script provides a comprehensive analysis of stock options using data
 
 •	google.colab: For downloading files in Google Colab environment.
 
-## **License:**
+## __**License:**__
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## **Acknowledgments:**
+## __**Acknowledgments:**__
 
 •	This script is inspired by the Black-Scholes option pricing model and various resources on options trading.
 
 •	Special thanks to the developers of yfinance and other libraries used in this project.
+
+<img width="1440" alt="Capture d’écran, le 2024-03-01 à 01 16 03" src="https://github.com/guccipepito/Stock-Options-Analysis-Tool/assets/87545774/b3c84b65-90bb-42e7-915a-5ad63267fa68">
+
  
 You can simply copy and paste this text into your GitHub repository's README.md file. Let me know if you need any further assistance!
 
