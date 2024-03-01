@@ -49,10 +49,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 •	This script is inspired by the Black-Scholes option pricing model and various resources on options trading.
 
-•	Special thanks to the developers of yfinance and other libraries used in this project.
 
 <img width="1440" alt="Capture d’écran, le 2024-03-01 à 01 16 03" src="https://github.com/guccipepito/Stock-Options-Analysis-Tool/assets/87545774/b3c84b65-90bb-42e7-915a-5ad63267fa68">
 
- 
-You can simply copy and paste this text into your GitHub repository's README.md file. Let me know if you need any further assistance!
+__Special thanks to the developers of yfinance and other libraries used in this project.__
 
