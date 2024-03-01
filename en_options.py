@@ -14,19 +14,19 @@ ________  ___  ___  ________  ________  ___  ________  _______   ________  ___  
 
 
 import subprocess
-import os  # Importing the os module for filesystem operations
+import os
+import numpy as np
+from scipy.stats import norm
+from datetime import datetime
+import yfinance as yf
+import pandas as pd
+from openpyxl import Workbook
+from openpyxl.styles import Alignment, Font
+from google.colab import files
+from pandas_datareader import data as pdr
 
 # Install necessary libraries
-subprocess.run(['pip', 'install', 'yfinance', 'numpy', 'scipy'])
-
-import numpy as np  # Importing the NumPy library for numerical calculations
-from scipy.stats import norm  # Importing the norm function from the SciPy library for statistics
-from datetime import datetime  # Importing the datetime class for date manipulation
-import yfinance as yf  # Importing the yfinance library to retrieve stock data
-import pandas as pd  # Importing the Pandas library for tabular data manipulation
-from openpyxl import Workbook  # Importing the Workbook class from the openpyxl library to create Excel files
-from openpyxl.styles import Alignment, Font  # Importing certain classes for Excel file formatting
-from google.colab import files  # Importing the files function from google.colab to download files
+subprocess.run(['pip', 'install', 'yfinance', 'numpy', 'scipy', 'pandas_datareader'])
 
 def get_option_expiration_dates(symbol):
     """
@@ -140,13 +140,21 @@ def calculate_historical_volatility(symbol, start_date, end_date):
     volatility = returns.std() * np.sqrt(252)  # Calculating historical volatility (252 trading days in a year)
     return volatility
 
-def fetch_option_info(ticker, expiry_date):
+def get_risk_free_rate():
     """
-    Fetches option information for a given ticker and expiry date.
+    Gets the risk-free rate using the 10-year Treasury constant maturity rate.
+    """
+    risk_free_rate_data = pdr.get_data_fred('DGS10')
+    return risk_free_rate_data['DGS10'][-1] / 100  # Convert percentage to decimal
+
+def fetch_option_info(ticker, expiry_date, risk_free_rate):
+    """
+    Fetches option information for a given ticker, expiry date, and risk-free rate.
 
     Args:
     ticker: Stock ticker
     expiry_date: Option expiration date
+    risk_free_rate: Risk-free interest rate
 
     Returns:
     Option information
@@ -165,7 +173,6 @@ def fetch_option_info(ticker, expiry_date):
         option = option_chain.calls.iloc[0]  # Assuming you're interested in the first available call option
         underlying_price = stock.history(period='1d').iloc[-1]['Close']  # Underlying stock price
         strike_price = option['strike']  # Option strike price
-        risk_free_rate = 0.05  # Assumed risk-free interest rate
 
         days_to_expiry = (expiry_date - trade_date).days / 365  # Time to expiration in years
 
@@ -187,13 +194,14 @@ def fetch_option_info(ticker, expiry_date):
 
 def main():
     symbol = input("Enter the stock symbol: ")
+    risk_free_rate = get_risk_free_rate()
     expiration_dates = get_option_expiration_dates(symbol)
 
     if expiration_dates:
         option_data_list = []
         for exp_date in expiration_dates:
             try:
-                option_data = fetch_option_info(symbol, exp_date)
+                option_data = fetch_option_info(symbol, exp_date, risk_free_rate)
                 # Calculating historical volatility
                 start_date = (datetime.now() - pd.Timedelta(days=365)).strftime('%Y-%m-%d')  # One year ago
                 end_date = datetime.now().strftime('%Y-%m-%d')
